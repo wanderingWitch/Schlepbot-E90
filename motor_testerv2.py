@@ -13,8 +13,8 @@ def main():
 
     port = serial.Serial('/dev/cu.usbserial')
 
-    address = bytearray([128])
-    command = bytearray([1]) # command bytes
+    # address = bytearray([128])
+    # command = bytearray([1]) # command bytes
     #
 
     # the bytes 0xFF 0x00 and 0x55
@@ -46,9 +46,9 @@ def main():
     """
 
     address = bytearray([128])
-    command = bytearray([8]) # command bytes
+    command = bytearray([0]) # command bytes
 
-    data = bytearray([40]) # data byte commands the appropriate speed.
+    data = bytearray([0]) # data byte commands the appropriate speed.
     # valid values are between 0 and 127
     checksum = bytearray([(address[0] + command[0] + data[0]) & 0b01111111] )
     # print len(checksum)
@@ -56,14 +56,14 @@ def main():
     for elt in [address, command, data, checksum]:
         towrite.extend(elt)
 
-    command_turn= bytearray([10])
-
-    data_turn = bytearray([12])
-    checksum_turn = bytearray([(address[0] + command_turn[0] + data_turn[0]) & 0b01111111] )
-
-    turn_write = bytearray()
-    for elt in [address, command_turn, data_turn, checksum_turn]:
-        turn_write.extend(elt)
+    # command_turn= bytearray([10])
+    #
+    # data_turn = bytearray([12])
+    # checksum_turn = bytearray([(address[0] + command_turn[0] + data_turn[0]) & 0b01111111] )
+    #
+    # turn_write = bytearray()
+    # for elt in [address, command_turn, data_turn, checksum_turn]:
+    #     turn_write.extend(elt)
 
 
     # while(1):
@@ -77,10 +77,7 @@ def main():
     # print [towrite[i] for i in range(len(towrite))]
 
     port.write(towrite)
-    port.write(turn_write)
     time.sleep(1)
-
-
 
 
 main()
