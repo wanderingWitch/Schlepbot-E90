@@ -7,7 +7,7 @@ motor controller with a few commands.
 Evan Greene
 2017/03/17
 """
-import serial
+import serial, time
 
 class writer(object):
 
@@ -15,12 +15,18 @@ class writer(object):
         # create a port.
         self.port = serial.Serial('/dev/cu.usbserial')
 
-        # initialize values for address, command, and data, and compute
-        # the checksum
+        # initialize values for address, command, and data, and the checksum
         self.address = bytearray([128])
-        self.command = bytearray([0])
-        self.data = bytearray([0])
-        self.compute_checksum()
+        self.command = bytearray([14])
+        self.data = bytearray([100])
+        self.checksum = bytearray([0])
+
+        # set up a timeout, where the motor will time out after not
+        # recieving a command for five seconds.
+        self.write()
+
+
+
 
     def write(self):
         """ Computes the checksum then writes the
@@ -29,15 +35,15 @@ class writer(object):
         self.compute_checksum()
 
         towrite = bytearray()
-        for elt in [self.address[0], self.command[0], self.data[0], \
-            self.checksum[0]]:
+        for elt in [self.address, self.command, self.data, \
+            self.checksum]:
 
             towrite.extend(elt)
 
         self.port.write(towrite)
 
     def compute_checksum(self):
-        self.checksum = bytearray([(self.address[0] + self.command[0], \
+        self.checksum = bytearray([(self.address[0] + self.command[0] +  \
             self.data[0]) & 0b01111111 ])
 
     def send_linear_vel(self, vel):
@@ -97,7 +103,16 @@ class writer(object):
         self.send_linear_vel(0)
         self.send_angular_vel(0)
 
+    # this seems to be causing some bugs, so it's disabled. 
+    # def __del__(self):
+        # self.stop() # Not necessary because of the timeout.
+        # self.port.close()
+
 if __name__ == '__main__':
     controller = writer()
-    controller.send_linear_vel(50)
-    controller.send_angular_vel(20)
+    controller.send_linear_vel(30)
+    controller.send_angular_vel(2)
+
+    time.sleep(10)
+
+    # controller.stop()
