@@ -239,8 +239,8 @@ def main():
         # print
 
     # plt.savefig( 'motor_modeling.png', orientation = 'landscape', papersize = 'letter')
-    plt.subplots_adjust(left = 0.05, right = .95, bottom = 0.05, top = .95,
-        hspace = .2, wspace = .2)
+    plt.subplots_adjust(left = 0.10, right = .90, bottom = 0.05, top = .95,
+        hspace = .3, wspace = .3)
     plt.show()
     plt.close()
 if __name__ == '__main__':
