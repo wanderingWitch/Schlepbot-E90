@@ -13,7 +13,12 @@ class writer(object):
 
     def __init__(self):
         # create a port.
-        self.port = serial.Serial('/dev/cu.usbserial')
+        # some robustness, so it can run on both mac and linux
+        try: # should work on linux
+            # self.port = serial.Serial('/dev/cu.usbserial')
+            self.port = serial.Serial('/dev/ttyUSB0')
+        except serial.serialutil.SerialException: # should work on mac
+            self.port = serial.Serial('/dev/cu.usbserial')
 
         # initialize values for address, command, and data, and the checksum
         self.address = bytearray([128])
@@ -41,6 +46,7 @@ class writer(object):
             towrite.extend(elt)
 
         self.port.write(towrite)
+        print 'wrote a packet'
 
     def compute_checksum(self):
         self.checksum = bytearray([(self.address[0] + self.command[0] +  \
@@ -103,7 +109,7 @@ class writer(object):
         self.send_linear_vel(0)
         self.send_angular_vel(0)
 
-    # this seems to be causing some bugs, so it's disabled. 
+    # this seems to be causing some bugs, so it's disabled.
     # def __del__(self):
         # self.stop() # Not necessary because of the timeout.
         # self.port.close()
