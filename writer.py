@@ -18,7 +18,7 @@ class writer(object):
         # initialize values for address, command, and data, and the checksum
         self.address = bytearray([128])
         self.command = bytearray([14])
-        self.data = bytearray([30])
+        self.data = bytearray([100])
         self.checksum = bytearray([0])
 
         # set up a timeout, where the motor will time out after not
@@ -105,7 +105,7 @@ class writer(object):
 
     # this seems to be causing some bugs, so it's disabled.
     # just solve the bugs by calling stop()
-    
+
     # def __del__(self):
     #     self.stop() # Not necessary because of the timeout.
     #     # self.port.close()
@@ -115,6 +115,6 @@ if __name__ == '__main__':
     controller.send_linear_vel(20)
     controller.send_angular_vel(2)
 
-    time.sleep(3)
+    time.sleep(10)
 
-    # controller.stop()
+    controller.stop()
