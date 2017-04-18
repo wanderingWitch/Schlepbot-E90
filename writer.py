@@ -115,14 +115,16 @@ class writer(object):
 
     # this seems to be causing some bugs, so it's disabled.
     # def __del__(self):
-        # self.stop() # Not necessary because of the timeout.
-        # self.port.close()
+    #     self.stop() # Not necessary because of the timeout.
+    #     # self.port.close()
 
 if __name__ == '__main__':
     controller = writer()
+
     controller.send_linear_vel(60)
     controller.send_angular_vel(0)
 
+
     time.sleep(3)
 
-    # controller.stop()
+    controller.stop()

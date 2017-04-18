@@ -1,0 +1,8 @@
+# .gitignore
+# for files that we should have git ignore
+
+/tmux
+
+# don't include .pyc files. 
+/*.pyc
+
