@@ -23,7 +23,7 @@ class writer(object):
         # initialize values for address, command, and data, and the checksum
         self.address = bytearray([128])
         self.command = bytearray([14])
-        self.data = bytearray([100])
+        self.data = bytearray([30])
         self.checksum = bytearray([0])
 
         # set up a timeout, where the motor will time out after not
@@ -46,7 +46,11 @@ class writer(object):
             towrite.extend(elt)
 
         self.port.write(towrite)
-        print 'wrote a packet'
+        print 'wrote a packet: '
+    	# print 'address = {}'.format(self.address[0])
+    	# print 'command = {}'.format(self.command[0])
+    	# print 'data = {}'.format(self.data[0])
+    	# print 'checksum = {}\n'.format(self.checksum[0])
 
     def compute_checksum(self):
         self.checksum = bytearray([(self.address[0] + self.command[0] +  \
@@ -116,9 +120,9 @@ class writer(object):
 
 if __name__ == '__main__':
     controller = writer()
-    controller.send_linear_vel(30)
-    controller.send_angular_vel(2)
+    controller.send_linear_vel(60)
+    controller.send_angular_vel(0)
 
-    time.sleep(10)
+    time.sleep(3)
 
     # controller.stop()

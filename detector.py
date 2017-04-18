@@ -8,7 +8,6 @@ Written by Evan Greene 2017/04/12.
 with code cribbed from Isaac Dulin
 github.com/swatbotics/apriltag
 """
-
 from argparse import ArgumentParser
 
 import cv2
@@ -16,8 +15,10 @@ import apriltag
 
 # for ROS stuff
 import rospy
+import roslib; roslib.load_manifest('apriltag_detector')
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBrigeError
 
 # for some reason pylint complains about members being undefined :(
 # pylint: disable=E1101
@@ -30,7 +31,7 @@ class apriltag_detector(object):
 
     def __init__(self):
         rospy.init_node('apriltag_detector')
-        rospy.Subscriber('image_topic_gray', Image)
+        rospy.Subscriber('image_topic_raw', Image)
         self.pub = rospy.Publisher('apriltag', Image, self.image_callback)
         self.bridge = CvBridge()
 

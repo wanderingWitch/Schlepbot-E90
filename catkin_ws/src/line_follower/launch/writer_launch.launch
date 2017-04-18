@@ -1,0 +1,8 @@
+<launch>
+
+   <group ns="testy_mc_testface">
+     <node pkg="line_follower" name="toUSB" type="writer.py"/>
+     <node pkg="key_teleop" name= "commander" type= "key_teleop.py"/>
+   </group>
+
+ </launch>

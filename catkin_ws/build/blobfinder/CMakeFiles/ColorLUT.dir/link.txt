@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC     -shared -Wl,-soname,libColorLUT.so -o /home/schleppy/catkin_ws/devel/lib/libColorLUT.so CMakeFiles/ColorLUT.dir/src/ColorLUT.cpp.o 
