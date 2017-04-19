@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "key_teleop"
-PROJECT_SPACE_DIR = "/home/schleppy/catkin_ws/install"
+PROJECT_SPACE_DIR = "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/install"
 PROJECT_VERSION = "0.2.4"

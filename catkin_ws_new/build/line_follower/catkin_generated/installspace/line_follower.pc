@@ -1,0 +1,8 @@
+prefix=/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/install
+
+Name: line_follower
+Description: Description of line_follower
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/install/lib 
+Requires: 

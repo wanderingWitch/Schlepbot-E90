@@ -1,0 +1,8 @@
+prefix=/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/install
+
+Name: apriltag_detector
+Description: Description of apriltag_detector
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/install/lib 
+Requires: 

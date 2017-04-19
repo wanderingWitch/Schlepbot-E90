@@ -7,7 +7,7 @@ from sys import path as sys_path
 
 from pkgutil import extend_path
 
-__extended_path = "/home/schleppy/catkin_ws/src/vision_opencv/image_geometry/src".split(";")
+__extended_path = "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/vision_opencv/image_geometry/src".split(";")
 for p in reversed(__extended_path):
     sys_path.insert(0, p)
     del p

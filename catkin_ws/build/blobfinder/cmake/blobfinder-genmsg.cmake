@@ -2,7 +2,7 @@
 
 message(STATUS "blobfinder: 4 messages, 0 services")
 
-set(MSG_I_FLAGS "-Iblobfinder:/home/schleppy/catkin_ws/src/blobfinder/msg;-Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iblobfinder:/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg;-Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,24 +17,24 @@ add_custom_target(blobfinder_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
 add_custom_target(_blobfinder_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "blobfinder" "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" "blobfinder/BlobInfo:blobfinder/BlobInfo3D:geometry_msgs/Point32:std_msgs/Header"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "blobfinder" "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg" ""
 )
 
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
 add_custom_target(_blobfinder_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "blobfinder" "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "blobfinder" "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" "blobfinder/BlobInfo:geometry_msgs/Point32"
 )
 
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
 add_custom_target(_blobfinder_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "blobfinder" "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" "blobfinder/BlobInfo:geometry_msgs/Point32"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "blobfinder" "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" "blobfinder/BlobInfo:geometry_msgs/Point32:blobfinder/BlobInfo3D:std_msgs/Header"
 )
 
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
 add_custom_target(_blobfinder_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "blobfinder" "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" "blobfinder/BlobInfo:std_msgs/Header"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "blobfinder" "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" "blobfinder/BlobInfo:std_msgs/Header"
 )
 
 #
@@ -44,27 +44,27 @@ add_custom_target(_blobfinder_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
-  "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/blobfinder
-)
-_generate_msg_cpp(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/blobfinder
 )
 _generate_msg_cpp(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/blobfinder
 )
 _generate_msg_cpp(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/blobfinder
+)
+_generate_msg_cpp(blobfinder
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "${MSG_I_FLAGS}"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/blobfinder
 )
 
@@ -82,13 +82,13 @@ add_custom_target(blobfinder_generate_messages_cpp
 add_dependencies(blobfinder_generate_messages blobfinder_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_cpp _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_cpp _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_cpp _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_cpp _blobfinder_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -101,27 +101,27 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS blobfinder_generate_messages_cpp)
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
-  "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/blobfinder
-)
-_generate_msg_eus(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/blobfinder
 )
 _generate_msg_eus(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/blobfinder
 )
 _generate_msg_eus(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/blobfinder
+)
+_generate_msg_eus(blobfinder
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "${MSG_I_FLAGS}"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/blobfinder
 )
 
@@ -139,13 +139,13 @@ add_custom_target(blobfinder_generate_messages_eus
 add_dependencies(blobfinder_generate_messages blobfinder_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_eus _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_eus _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_eus _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_eus _blobfinder_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -158,27 +158,27 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS blobfinder_generate_messages_eus)
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
-  "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/blobfinder
-)
-_generate_msg_lisp(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/blobfinder
 )
 _generate_msg_lisp(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/blobfinder
 )
 _generate_msg_lisp(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/blobfinder
+)
+_generate_msg_lisp(blobfinder
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "${MSG_I_FLAGS}"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/blobfinder
 )
 
@@ -196,13 +196,13 @@ add_custom_target(blobfinder_generate_messages_lisp
 add_dependencies(blobfinder_generate_messages blobfinder_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_lisp _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_lisp _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_lisp _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_lisp _blobfinder_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -215,27 +215,27 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS blobfinder_generate_messages_lisp)
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
-  "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/blobfinder
-)
-_generate_msg_nodejs(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/blobfinder
 )
 _generate_msg_nodejs(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/blobfinder
 )
 _generate_msg_nodejs(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/blobfinder
+)
+_generate_msg_nodejs(blobfinder
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "${MSG_I_FLAGS}"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/blobfinder
 )
 
@@ -253,13 +253,13 @@ add_custom_target(blobfinder_generate_messages_nodejs
 add_dependencies(blobfinder_generate_messages blobfinder_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_nodejs _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_nodejs _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_nodejs _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_nodejs _blobfinder_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -272,27 +272,27 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS blobfinder_generate_messages_nodejs
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
-  "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/blobfinder
-)
-_generate_msg_py(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/blobfinder
 )
 _generate_msg_py(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/blobfinder
 )
 _generate_msg_py(blobfinder
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg"
   "${MSG_I_FLAGS}"
-  "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point32.msg;/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/blobfinder
+)
+_generate_msg_py(blobfinder
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg"
+  "${MSG_I_FLAGS}"
+  "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/blobfinder
 )
 
@@ -310,13 +310,13 @@ add_custom_target(blobfinder_generate_messages_py
 add_dependencies(blobfinder_generate_messages blobfinder_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_py _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_py _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/BlobInfo3D.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo3D.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_py _blobfinder_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/schleppy/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/blobfinder/msg/MultiBlobInfo.msg" NAME_WE)
 add_dependencies(blobfinder_generate_messages_py _blobfinder_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

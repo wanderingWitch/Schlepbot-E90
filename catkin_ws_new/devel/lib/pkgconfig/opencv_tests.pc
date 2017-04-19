@@ -1,0 +1,8 @@
+prefix=/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/devel
+
+Name: opencv_tests
+Description: Description of opencv_tests
+Version: 1.12.4
+Cflags: 
+Libs: -L/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/devel/lib 
+Requires: 

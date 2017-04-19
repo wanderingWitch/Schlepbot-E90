@@ -14,20 +14,20 @@ fi
 
 echo_and_run() { echo "+ $@" ; "$@" ; }
 
-echo_and_run cd "/home/schleppy/catkin_ws/src/vision_opencv/image_geometry"
+echo_and_run cd "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/vision_opencv/image_geometry"
 
 # snsure that Python install destination exists
-echo_and_run mkdir -p "$DESTDIR/home/schleppy/catkin_ws/install/lib/python2.7/dist-packages"
+echo_and_run mkdir -p "$DESTDIR/home/schleppy/project_files/Schlepbot-E90/catkin_ws/install/lib/python2.7/dist-packages"
 
 # Note that PYTHONPATH is pulled from the environment to support installing
 # into one location when some dependencies were installed in another
 # location, #123.
 echo_and_run /usr/bin/env \
-    PYTHONPATH="/home/schleppy/catkin_ws/install/lib/python2.7/dist-packages:/home/schleppy/catkin_ws/build/lib/python2.7/dist-packages:$PYTHONPATH" \
-    CATKIN_BINARY_DIR="/home/schleppy/catkin_ws/build" \
+    PYTHONPATH="/home/schleppy/project_files/Schlepbot-E90/catkin_ws/install/lib/python2.7/dist-packages:/home/schleppy/project_files/Schlepbot-E90/catkin_ws/build/lib/python2.7/dist-packages:$PYTHONPATH" \
+    CATKIN_BINARY_DIR="/home/schleppy/project_files/Schlepbot-E90/catkin_ws/build" \
     "/usr/bin/python" \
-    "/home/schleppy/catkin_ws/src/vision_opencv/image_geometry/setup.py" \
-    build --build-base "/home/schleppy/catkin_ws/build/vision_opencv/image_geometry" \
+    "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/src/vision_opencv/image_geometry/setup.py" \
+    build --build-base "/home/schleppy/project_files/Schlepbot-E90/catkin_ws/build/vision_opencv/image_geometry" \
     install \
     $DESTDIR_ARG \
-    --install-layout=deb --prefix="/home/schleppy/catkin_ws/install" --install-scripts="/home/schleppy/catkin_ws/install/bin"
+    --install-layout=deb --prefix="/home/schleppy/project_files/Schlepbot-E90/catkin_ws/install" --install-scripts="/home/schleppy/project_files/Schlepbot-E90/catkin_ws/install/bin"
