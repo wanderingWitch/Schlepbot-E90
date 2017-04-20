@@ -18,7 +18,7 @@ import rospy
 import roslib; roslib.load_manifest('apriltag_detector')
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
-from cv_bridge import CvBridge, CvBrigeError
+from cv_bridge import CvBridge, CvBridgeError
 
 # for some reason pylint complains about members being undefined :(
 # pylint: disable=E1101

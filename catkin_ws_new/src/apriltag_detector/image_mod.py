@@ -32,6 +32,7 @@ class getImage(object):
             if not success:
                 pass
             else:
+                # ToDo: Get image center, rotate by 180 degrees, publish
                 self.image_pub.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
         except CvBridgeError as e:
             print(e)
