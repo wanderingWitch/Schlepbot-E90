@@ -35,8 +35,8 @@ class getImage(object):
                 # height, width, foo = cv_image.shape
                 # rot_mat = cv2.getRotationMatrix2D((width/2, height/2), 180, 1)
                 # image_rotated = cv2.warpAffine(cv_image, rot_mat, (width, height))
-                img_flipped = cv2.flip(cv_image, 1)
-                self.image_pub.publish(self.bridge.cv2_to_imgmsg(img_flipped, "bgr8"))
+                # img_flipped = cv2.flip(cv_image, 0)
+                self.image_pub.publish(self.bridge.cv2_to_imgmsg(data, "bgr8"))
         except CvBridgeError as e:
             print(e)
     def run(self):

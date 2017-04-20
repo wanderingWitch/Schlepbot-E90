@@ -43,7 +43,7 @@ class apriltag_detector(object):
         # data, just capture the node with cv2.VideoCapture every set length
         # of time.
         self.bridge = CvBridge()
-        self.camera = cv2.VideoCapture(0)
+        # self.camera = cv2.VideoCapture(0)
 
         # print self.camera
 
@@ -79,7 +79,7 @@ class apriltag_detector(object):
 
         # create an apriltag detector
         self.detector = apriltag.Detector(options)
-        print self.detector
+        # print self.detector
         # print 'created a detector'
         # some parameters for calculating the moving average of vectors.
         # We will store each tvec computed data. Each row of the tvec_list
