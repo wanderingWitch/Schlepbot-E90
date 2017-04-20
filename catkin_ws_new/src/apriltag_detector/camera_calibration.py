@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 import numpy
-import cvk2
+# import cvk2
 import sys
 import os
 

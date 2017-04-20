@@ -54,7 +54,7 @@ class apriltag_detector(object):
         # UNHACK: subscribe to the image publisher and create an image_callback
         self.sub = rospy.Subscriber("camera_raw", Image, self.image_callback )
         # set up parameters for the apriltag detector
-        aprilsize = 0.05 #  half the side length of the apriltag in meters
+        aprilsize = 0.04 #  half the side length of the apriltag in meters; changed from 0.05 4/20/17
         self.opts = np.array([[aprilsize, -aprilsize, 0.],
                     [-aprilsize, -aprilsize, 0.],
                     [-aprilsize, aprilsize, 0.],
@@ -79,14 +79,16 @@ class apriltag_detector(object):
 
         # create an apriltag detector
         self.detector = apriltag.Detector(options)
+        print self.detector
         # print 'created a detector'
         # some parameters for calculating the moving average of vectors.
         # We will store each tvec computed data. Each row of the tvec_list
         # will be a value of the tvec
-        self.tvec_list = np.empty([10, 3])
-        self.tvec_list[:] = np.nan
-        self.tvec_list_index = 0
-        self.tvec = [None, None, None]
+        # self.tvec_list = np.empty([10, 3])
+        # self.tvec_list[:] = np.nan
+        # self.tvec_list_index = 0
+        self.tvec_avg = np.array([[0], [0], [0]])
+        # print self.tvec_avg.shape
 
     def image_callback(self, data):
         """ At a specified rate (determined by fps variable in __init__),
@@ -108,7 +110,7 @@ class apriltag_detector(object):
         detections = self.detector.detect(gray, return_image = False)
 
         if not detections:
-			self.pub.publish(None,None, None)
+			# self.pub.publish(None,None, None)
 			return
         num_detections = len(detections)
         rospy.loginfo('Detected {} tags'.format(num_detections))
@@ -116,13 +118,18 @@ class apriltag_detector(object):
         for i, detection in enumerate(detections):
             retval, rvec, tvec = cv2.solvePnP(self.opts, detection.corners,
                 self.cmatrix, self.dists)
-            self.tvec_list[self.tvec_list_index, :] = tvec.flatten()
-            self.tvec_list_index = (self.tvec_list_index + 1) % 10
-            # print self.tvec_list
-            modified_list = self.tvec_list[~(np.isnan(self.tvec_list[:]).any(axis=1)),:]
-            self.tvec = np.mean(modified_list, axis=0)
+            print self.tvec_avg.shape
+            print tvec
+            # tvec = tvec.flatten()
+            # self.tvec_list[self.tvec_list_index, :] = tvec.flatten()
+            # self.tvec_list_index = (self.tvec_list_index + 1) % 10
+            # print "un-averaged list", self.tvec_list
+            # self.tvec = np.mean(modified_list, axis=0)
+            # modified_list = self.tvec_list[~(np.isnan(self.tvec_list[:]).any(axis=1)),:]
             # print "tvec is ", self.tvec
-            self.pub.publish(self.tvec[0], self.tvec[1], self.tvec[2]) # publish the center of the tag.
+            self.tvec_avg = 0.8 * self.tvec_avg + 0.2 * tvec
+            # print self.tvec_avg
+            self.pub.publish(self.tvec_avg[0], self.tvec_avg[1], self.tvec_avg[2]) # publish the center of the tag.
 
     # Running is just rospy.spin()
     def run(self):
