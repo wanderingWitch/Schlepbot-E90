@@ -12,11 +12,11 @@ import roslib
 import rospy
 from geometry_msgs.msg import Twist, Point
 import numpy as np
-CORRECTION_FACTOR = .10 # This is by how much we adjust the angular velocity to
+CORRECTION_FACTOR = .05 # This is by how much we adjust the angular velocity to
 		       # prevent Schleppy from pulling left
 LINEAR_SLOPE = 0.15
 ANGULAR_SLOPE = 0.15
-
+MAX_SPEED = 0.8
 CONTROL_PERIOD = rospy.Duration(0.01)
 class controller(object):
 	
@@ -33,23 +33,24 @@ class controller(object):
 	   rospy.Timer(CONTROL_PERIOD, self.control_callback)
 	# Based on distance, write a velocity.
 	def update_distance(self, msg):
-	   if (msg == None):
+	   if (msg.x == 0 and msg.y == 0 and msg.z == 0):
 		pass
-	   d = np.sqrt(msg.x**2 + msg.z**2)
-	   angle = np.arctan2(msg.x, msg.z)
+	   else:
+	   	d = np.sqrt(msg.x**2 + msg.z**2)
+	   	angle = np.arctan2(msg.x, msg.z)
 	   
-	   linear = max(LINEAR_SLOPE*(d-1), 0)
-	   angular = ANGULAR_SLOPE*angle 
+	   	linear = max(LINEAR_SLOPE*(d-1), 0)
+	   	angular = ANGULAR_SLOPE*angle 
 
-	   if(linear!=0):
-	     angular += CORRECTION_FACTOR
-	   new_linear = min(linear, 1)
-           new_angular = min(angular, 1)
+	   	if(linear!=0):
+	     		angular += CORRECTION_FACTOR
+	   	new_linear = min(linear, MAX_SPEED)
+           	new_angular = min(angular, MAX_SPEED)
 
-	   if (np.abs(self.desired_linear - new_linear) > 0.02):
+	   	#if (np.abs(self.desired_linear - new_linear) > 0.02):
 		self.desired_linear = new_linear
 
-	   if (np.abs(self.desired_angular - new_angular) > 0.02):
+	   	#if (np.abs(self.desired_angular - new_angular) > 0.02):
 		self.desired_angular = new_angular
 
         def control_callback(self, timer_event=None):
