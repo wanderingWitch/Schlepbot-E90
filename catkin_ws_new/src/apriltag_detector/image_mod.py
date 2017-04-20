@@ -16,8 +16,8 @@ class getImage(object):
     def __init__(self):
         # Set up image capture
         rospy.init_node('image_capture')
-        self.camera = cv2.VideoCapture(0)
-        self.image_pub = rospy.Publisher("camera_raw", Image, latch=True)
+        self.camera = cv2.VideoCapture(1)
+        self.image_pub = rospy.Publisher("camera_raw", Image, queue_size = 5,  latch=True)
         self.bridge = CvBridge()
         rospy.Timer(FRAME_RATE, self.image_callback)
 

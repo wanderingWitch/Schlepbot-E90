@@ -22,8 +22,8 @@ import roslib; roslib.load_manifest('apriltag_detector')
 # from rospy_tutorials.msg import Floats
 from geometry_msgs.msg import Point
 # from std_msgs.msg import String
-# from sensor_msgs.msg import Image
-# from cv_bridge import CvBridge, CvBridgeError
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
 
 # for some reason pylint complains about members being undefined :(
 # pylint: disable=E1101
@@ -37,17 +37,20 @@ class apriltag_detector(object):
     def __init__(self):
         rospy.init_node('apriltag_detector')
         # rospy.Subscriber('image_topic', Image, self.image_callback)
+
         # HACK: rather than subscribing to an image topic and then using that
         # data, just capture the node with cv2.VideoCapture every set length
         # of time.
 
-        self.camera = cv2.VideoCapture(0)
+        # self.camera = cv2.VideoCapture(0)
         # print self.camera
 
-        fps = 50 # frames per second
-        rate = rospy.Duration(1.0 / fps)
-        rospy.Timer(rate, self.image_callback)
+        # fps = 50 # frames per second
+        # rate = rospy.Duration(1.0 / fps)
+        # rospy.Timer(rate, self.image_callback)
 
+        # UNHACK: subscribe to the image publisher and create an image_callback
+        self.sub = rospy.Subscriber("camera_raw", Image, self.image_callback )
         # set up parameters for the apriltag detector
         aprilsize = 0.05 #  half the side length of the apriltag in meters
         self.opts = np.array([[aprilsize, -aprilsize, 0.],
@@ -58,8 +61,7 @@ class apriltag_detector(object):
         self.dists = np.loadtxt("Distortion.txt")
 
         self.pub = rospy.Publisher('apriltag', Point ,queue_size = 10)
-        # self.pub = rospy.Publisher('apriltag', String, queue_size = 10)
-        # self.bridge = CvBridge()
+        self.bridge = CvBridge()
 
         # set upt the detector
         parser = ArgumentParser(
@@ -74,7 +76,7 @@ class apriltag_detector(object):
 
         # create an apriltag detector
         self.detector = apriltag.Detector(options)
-
+        # print 'created a detector'
         # some parameters for calculating the moving average of vectors.
         # We will store each tvec computed data. Each row of the tvec_list
         # will be a value of the tvec
@@ -83,7 +85,7 @@ class apriltag_detector(object):
         self.tvec_list_index = 0
         self.tvec = [None, None, None]
 
-    def image_callback(self, timer_event=None):
+    def image_callback(self, data):
         """ At a specified rate (determined by fps variable in __init__),
         it will call this method, which will grab a frame, then analyze the
         image to see if it has any apriltags in it.
@@ -91,18 +93,19 @@ class apriltag_detector(object):
         topic. If it does not, then it will do nothing.
         """
 
-        success, data = self.camera.read()
-        if not success:
+        # success, data = self.camera.read()
+        # if not success:
             # print 'failed to read'
-            rospy.loginfo('failed to read camera')
-            return
+            # rospy.loginfo('failed to read camera')
+            # return
         # rospy.loginfo('found an image')
         # bridgedata = self.bridge.imgmsg_to_cv2(data, "bgr8")
-        gray = cv2.cvtColor(data, cv2.COLOR_RGB2GRAY)
+        frame = self.bridge.imgmsg_to_cv2(data, "bgr8")
+        gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
         detections = self.detector.detect(gray, return_image = False)
 
         if not detections:
-			self.pub.publish(self.tvec[0], self.tvec[1], self.tvec[2])
+			self.pub.publish(None,None, None)
 			return
         num_detections = len(detections)
         rospy.loginfo('Detected {} tags'.format(num_detections))
