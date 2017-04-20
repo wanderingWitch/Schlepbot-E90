@@ -32,8 +32,10 @@ class getImage(object):
             if not success:
                 pass
             else:
-                # ToDo: Get image center, rotate by 180 degrees, publish
-                self.image_pub.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
+                height, width, foo = cv_image.shape
+                rot_mat = cv2.getRotationMatrix2D((width/2, height/2), 180, 1)
+                image_rotated = cv2.warpAffine(cv_image, rot_mat, (width, height))
+                self.image_pub.publish(self.bridge.cv2_to_imgmsg(image_rotated, "bgr8"))
         except CvBridgeError as e:
             print(e)
     def run(self):

@@ -12,6 +12,7 @@ github.com/swatbotics/apriltag
 from argparse import ArgumentParser
 
 import cv2
+from cv_bridge import CvBridge, CvBridgeError
 import apriltag
 import numpy as np
 
@@ -41,8 +42,9 @@ class apriltag_detector(object):
         # HACK: rather than subscribing to an image topic and then using that
         # data, just capture the node with cv2.VideoCapture every set length
         # of time.
+        self.bridge = CvBridge()
+        self.camera = cv2.VideoCapture(0)
 
-        # self.camera = cv2.VideoCapture(0)
         # print self.camera
 
         # fps = 50 # frames per second
@@ -60,8 +62,9 @@ class apriltag_detector(object):
         self.cmatrix = np.loadtxt("CameraMatrix.txt")
         self.dists = np.loadtxt("Distortion.txt")
 
-        self.pub = rospy.Publisher('apriltag', Point ,queue_size = 10)
-        self.bridge = CvBridge()
+        self.pub = rospy.Publisher('apriltag', Point, queue_size = 10)
+        # self.pub = rospy.Publisher('apriltag', String, queue_size = 10)
+        # self.bridge = CvBridge()
 
         # set upt the detector
         parser = ArgumentParser(
