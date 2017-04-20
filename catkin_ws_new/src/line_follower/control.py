@@ -13,7 +13,7 @@ import rospy
 from geometry_msgs.msg import Twist, Point
 import numpy as np
 CORRECTION_FACTOR = .05 # This is by how much we adjust the angular velocity to
-		       # prevent Schleppy from pulling left
+		       			# prevent Schleppy from pulling left
 LINEAR_SLOPE = 0.15
 ANGULAR_SLOPE = 0.15
 MAX_SPEED = 0.8
