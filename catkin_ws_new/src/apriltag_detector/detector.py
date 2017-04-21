@@ -75,7 +75,7 @@ class apriltag_detector(object):
 
         apriltag.add_arguments(parser)
 
-        options = parser.parse_args()
+        options = parser.parse_args(rospy.myargv()[1:])
 
         # create an apriltag detector
         self.detector = apriltag.Detector(options)
