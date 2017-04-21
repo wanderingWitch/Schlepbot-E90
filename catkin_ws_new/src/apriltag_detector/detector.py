@@ -59,8 +59,8 @@ class apriltag_detector(object):
                     [-aprilsize, -aprilsize, 0.],
                     [-aprilsize, aprilsize, 0.],
                     [aprilsize, aprilsize, 0.]])
-        self.cmatrix = np.loadtxt("CameraMatrix.txt")
-        self.dists = np.loadtxt("Distortion.txt")
+        self.cmatrix = np.loadtxt("/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/src/apriltag_detector/CameraMatrix.txt")
+        self.dists = np.loadtxt("/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/src/apriltag_detector/Distortion.txt")
 
         self.pub = rospy.Publisher('apriltag', Point, queue_size = 10)
         # self.pub = rospy.Publisher('apriltag', String, queue_size = 10)
