@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 import cv2
 import sys
-import roslib
+import roslib; roslib.load_manifest('apriltag_detector')
 import rospy
 import numpy as np
 from sensor_msgs.msg import Image
