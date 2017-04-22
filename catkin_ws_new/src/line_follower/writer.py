@@ -46,12 +46,13 @@ class writer(object):
 
     def update_vel(self, msg):
         # Set forward velocity
-	print msg.linear.x
-	print msg.angular.z	
-		# someone made right turns positive in the msg finle, so we need to correct
+	print "update_vel callback"
+	# someone made right turns positive in the msg finle, so we need to correct
 	msg.angular.z *= -1
         self.send_linear_vel(int(0.5*127*msg.linear.x))
+	print "linear: ",str(self.data[0])
         self.send_angular_vel(int(0.5*127*msg.angular.z))
+	print "angular: ", str(self.data[0])
 
     def write(self):
         """ Computes the checksum then writes the
@@ -130,9 +131,9 @@ class writer(object):
         self.send_angular_vel(0)
 
     # this seems to be causing some bugs, so it's disabled.
-    # def __del__(self):
-        # self.stop() # Not necessary because of the timeout.
-        # self.port.close()
+    def __del__(self):
+      	self.stop() # Not necessary because of the timeout.
+        self.port.close()
 
 if __name__ == '__main__':
     controller = writer()
@@ -141,6 +142,3 @@ if __name__ == '__main__':
     except rospy.ROSInterruptException:
         # Some sort of error
         controller.stop()
-#    time.sleep(10)
-
-    # controller.stop()

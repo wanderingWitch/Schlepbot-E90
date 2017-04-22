@@ -8,6 +8,8 @@ import apriltag
 from time import sleep
 def main():
     cam = cv2.VideoCapture(1)
+    cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
     # sleep(0.2)
     success, frame = cam.read()
     if not success:

@@ -18,7 +18,8 @@ import numpy as np
 
 # for ROS stuff
 import rospy
-import roslib; roslib.load_manifest('apriltag_detector')
+import roslib; 
+# roslib.load_manifest('apriltag_detector')
 
 # from rospy_tutorials.msg import Floats
 from geometry_msgs.msg import Point
@@ -109,17 +110,17 @@ class apriltag_detector(object):
         gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
         detections = self.detector.detect(gray, return_image = False)
 
-        if not detections:
-			# self.pub.publish(None,None, None)
-			return
         num_detections = len(detections)
         rospy.loginfo('Detected {} tags'.format(num_detections))
+        if not detections:
+			self.pub.publish(None,None, None)
+			return
 
         for i, detection in enumerate(detections):
             retval, rvec, tvec = cv2.solvePnP(self.opts, detection.corners,
                 self.cmatrix, self.dists)
-            print self.tvec_avg.shape
-            print tvec
+            # print self.tvec_avg.shape
+            # print tvec
             # tvec = tvec.flatten()
             # self.tvec_list[self.tvec_list_index, :] = tvec.flatten()
             # self.tvec_list_index = (self.tvec_list_index + 1) % 10
