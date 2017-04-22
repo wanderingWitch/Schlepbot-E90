@@ -1,7 +1,8 @@
 """
 picture_tester.py
 
-Determines if pictures are any good for camera Calibration
+Determines if pictures are any good for camera Calibration by showing them to
+you and having you pick. 
 """
 import sys
 import cv2

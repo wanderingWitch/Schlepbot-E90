@@ -5,9 +5,10 @@ import cv2
 import numpy as np
 from argparse import ArgumentParser
 import apriltag
-
+from time import sleep
 def main():
     cam = cv2.VideoCapture(1)
+    # sleep(0.2)
     success, frame = cam.read()
     if not success:
         print 'failed to read camera'
@@ -46,11 +47,13 @@ def main():
     for tag in tags:
         print 'tag has corners \n{} \n'.format(tag.corners)
         print tag.corners.shape, tag.corners.dtype
-
+        # line = np.array([[10, 0], [10, 470]])
+        # cv2.polylines(display, [line], True, (255, 0, 255), 0, 16)
         cv2.polylines(display, [tag.corners.astype(int)], True, (255,255,0), 1, 16)
-
-        # corners_adj = tag.corners - np.array([frame.shape[1]/2, 0])
+        # print frame.shape
+        # corners_adj = tag.corners + np.array([frame.shape[0]/2, 0])
         # print 'adjusted corners \n{} \n'.format(corners_adj)
+
         retval, rvec, tvec = cv2.solvePnP(opts, tag.corners,
             cmat, dmat)
 

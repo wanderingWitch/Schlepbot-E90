@@ -37,7 +37,7 @@ class controller(object):
 		# Will publish out velocity to writer
 		self.cmd_vel_pub = rospy.Publisher('key_vel', Twist, latch=True)
 		# Will read April Tag info from camera
-		rospy.Subscriber('apriltag', Point, self.update_distance)
+		rospy.Subscriber('vision/apriltag', Point, self.update_distance)
 		rospy.Timer(CONTROL_PERIOD, self.control_callback)
 		# Based on distance, write a velocity.
 	def update_distance(self, msg):

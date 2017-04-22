@@ -1,7 +1,13 @@
 #!/bin/bash
-`roscore`
-`rosrun apriltag_detector image_mod.py`
-`rosrun apriltag_detector`
-sleep 4;
-echo `rosrun line_follower control.py`
-`rosrun line_follower writer.py`
+source /opt/ros/kinetic/setup.sh
+export ROS_PACKAGE_PATH=~/project_files/Schlepbot-E90/catkin_ws_new/src:$ROS_PACKAGE_PATH
+screen -d -m -S roscore roscore
+echo launched roscore
+screen -d -m -S raw rosrun apriltag_detector image_mod.py
+echo launched raw camera
+screen -d -m -S detect rosrun apriltag_detector detector.py
+echo launched apriltag detector
+sleep 30;
+#screen -d -m -S rosrun line_follower control.py
+#screen -d -m -S rosrun line_follower writer.py
+#rostopic echo "key_vel"

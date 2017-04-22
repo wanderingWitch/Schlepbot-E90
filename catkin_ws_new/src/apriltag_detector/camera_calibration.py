@@ -14,7 +14,7 @@ criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 # prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)
 objp = np.zeros((10*6,3), np.float32)
 
-square_size = 0.035 # meters
+square_size = 0.025 # meters
 
 objp[:,:2] = np.mgrid[0:10,0:6].T.reshape(-1,2) * square_size
 
