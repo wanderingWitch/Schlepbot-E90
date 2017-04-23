@@ -1,7 +1,7 @@
 #!/bin/bash
-source /opt/ros/kinetic/share/setup.sh
+source /opt/ros/kinetic/setup.sh
 export ROS_PACKAGE_PATH=~/project_files/Schlepbot-E90/catkin_ws_new/src:$ROS_PACKAGE_PATH
-screen -d -m -S roscore roscore
+screen -d -m -S running_roscore roscore
 echo launched roscore
 # screen -d -m -S raw rosrun apriltag_detector image_mod.py
 # echo launched raw camera
