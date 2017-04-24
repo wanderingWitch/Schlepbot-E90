@@ -18,7 +18,7 @@ import numpy as np
 
 # for ROS stuff
 import rospy
-import roslib; 
+import roslib;
 # roslib.load_manifest('apriltag_detector')
 
 # from rospy_tutorials.msg import Floats
@@ -113,24 +113,24 @@ class apriltag_detector(object):
         num_detections = len(detections)
         rospy.loginfo('Detected {} tags'.format(num_detections))
         if not detections:
-			self.pub.publish(None,None, None)
-			return
+		self.pub.publish(None,None, None)
+		return
 
-        for i, detection in enumerate(detections):
-            retval, rvec, tvec = cv2.solvePnP(self.opts, detection.corners,
-                self.cmatrix, self.dists)
-            # print self.tvec_avg.shape
-            # print tvec
-            # tvec = tvec.flatten()
-            # self.tvec_list[self.tvec_list_index, :] = tvec.flatten()
-            # self.tvec_list_index = (self.tvec_list_index + 1) % 10
-            # print "un-averaged list", self.tvec_list
-            # self.tvec = np.mean(modified_list, axis=0)
-            # modified_list = self.tvec_list[~(np.isnan(self.tvec_list[:]).any(axis=1)),:]
-            # print "tvec is ", self.tvec
-            self.tvec_avg = 0.8 * self.tvec_avg + 0.2 * tvec
-            # print self.tvec_avg
-            self.pub.publish(self.tvec_avg[0], self.tvec_avg[1], self.tvec_avg[2]) # publish the center of the tag.
+	detection = detections[0]
+        retval, rvec, tvec = cv2.solvePnP(self.opts, detection.corners,
+            self.cmatrix, self.dists)
+        # print self.tvec_avg.shape
+        # print tvec
+        # tvec = tvec.flatten()
+        # self.tvec_list[self.tvec_list_index, :] = tvec.flatten()
+        # self.tvec_list_index = (self.tvec_list_index + 1) % 10
+        # print "un-averaged list", self.tvec_list
+        # self.tvec = np.mean(modified_list, axis=0)
+        # modified_list = self.tvec_list[~(np.isnan(self.tvec_list[:]).any(axis=1)),:]
+        # print "tvec is ", self.tvec
+        self.tvec_avg = 0.8 * self.tvec_avg + 0.2 * tvec
+        # print self.tvec_avg
+        self.pub.publish(self.tvec_avg[0], self.tvec_avg[1], self.tvec_avg[2]) # publish the center of the tag.
 
     # Running is just rospy.spin()
     def run(self):
@@ -141,4 +141,4 @@ if __name__ == '__main__':
         det = apriltag_detector()
         det.run()
     except rospy.ROSInterruptException:
-		pass
+	pass

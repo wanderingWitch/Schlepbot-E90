@@ -31,7 +31,7 @@ class writer(object):
         # initialize values for address, command, and data, and the checksum
         self.address = bytearray([128])
         self.command = bytearray([14])
-        self.data = bytearray([100])
+        self.data = bytearray([2])
         self.checksum = bytearray([0])
 
         # set up a timeout, where the motor will time out after not
@@ -130,14 +130,13 @@ class writer(object):
         self.send_linear_vel(0)
         self.send_angular_vel(0)
 
-    # this seems to be causing some bugs, so it's disabled.
     def __del__(self):
-      	self.stop() # Not necessary because of the timeout.
+      	self.stop() # Stop the robot moving
         self.port.close()
 
 if __name__ == '__main__':
-    controller = writer()
     try:
+        controller = writer()
         controller.run()
     except rospy.ROSInterruptException:
         # Some sort of error
