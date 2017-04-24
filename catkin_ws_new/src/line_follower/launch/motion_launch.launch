@@ -1,0 +1,8 @@
+<launch>
+
+   <group ns="motion">
+     <node pkg="line_follower" name="control" type="control.py"/>
+     <node pkg="line_follower" name="toUSB" type="writer.py"/>
+   </group>
+
+ </launch>
