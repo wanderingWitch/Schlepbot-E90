@@ -7,7 +7,7 @@ from argparse import ArgumentParser
 import apriltag
 from time import sleep
 def main():
-    cam = cv2.VideoCapture(1)
+    cam = cv2.VideoCapture(0)
     cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
     cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
     # sleep(0.2)
@@ -17,9 +17,9 @@ def main():
         return
     display = frame.copy()
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
-    # cv2.imshow('win', frame)
-    # cv2.waitKey()
-    aprilsize = 0.04
+    cv2.imshow('win', frame)
+    cv2.waitKey()
+    aprilsize = 0.08
     opts = np.array([[aprilsize, -aprilsize, 0.],
                         [-aprilsize, -aprilsize, 0.],
                         [-aprilsize, aprilsize, 0.],
@@ -62,8 +62,8 @@ def main():
         print 'tag has tvec \n{}'.format(tvec)
         # print 'tag has rvec \n{}'.format(rvec)
 
-    cv2.imshow('win', display)
-    while cv2.waitKey(5) not in range(127): pass
+    # cv2.imshow('win', display)
+    # while cv2.waitKey(5) not in range(127): pass
 
 if __name__== '__main__':
     main()

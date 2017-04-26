@@ -55,7 +55,7 @@ class apriltag_detector(object):
         # UNHACK: subscribe to the image publisher and create an image_callback
         self.sub = rospy.Subscriber("camera_raw", Image, self.image_callback )
         # set up parameters for the apriltag detector
-        aprilsize = 0.04 #  half the side length of the apriltag in meters; changed from 0.05 4/20/17
+        aprilsize = 0.08 #  half the side length of the apriltag in meters; changed from 0.05 4/20/17
         self.opts = np.array([[aprilsize, -aprilsize, 0.],
                     [-aprilsize, -aprilsize, 0.],
                     [-aprilsize, aprilsize, 0.],
@@ -128,7 +128,8 @@ class apriltag_detector(object):
         # self.tvec = np.mean(modified_list, axis=0)
         # modified_list = self.tvec_list[~(np.isnan(self.tvec_list[:]).any(axis=1)),:]
         # print "tvec is ", self.tvec
-        self.tvec_avg = 0.8 * self.tvec_avg + 0.2 * tvec
+        # self.tvec_avg = 0.6 * self.tvec_avg + 0.4 * tvec
+        self.tvec_avg = 0.5 * tvec + 0.5 * self.tvec_avg # No moving average 
         # print self.tvec_avg
         self.pub.publish(self.tvec_avg[0], self.tvec_avg[1], self.tvec_avg[2]) # publish the center of the tag.
 
