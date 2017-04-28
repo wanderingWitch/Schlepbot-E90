@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 import cv2
-import sys
 import roslib; roslib.load_manifest('apriltag_detector')
 import rospy
 import numpy as np
@@ -27,22 +26,17 @@ class getImage(object):
         rospy.Timer(FRAME_RATE, self.image_callback)
 
     def image_callback(self, timer_event=None):
+        # Get the frame from the camera
         success, data = self.camera.read()
         if not success:
-            # print 'failed to read'
+            # This means that there was some sort of failure to read the camera
             rospy.loginfo('failed to read camera')
             return
         try:
-            success, cv_image = self.camera.read()
-            if not success:
-                return
-            # height, width, foo = cv_image.shape
-            # rot_mat = cv2.getRotationMatrix2D((width/2, height/2), 180, 1)
-            # image_rotated = cv2.warpAffine(cv_image, rot_mat, (width, height))
-            # img_flipped = cv2.flip(cv_image, 0)
+            # convert the image to a ROS topic and publish it to camera_raw
             self.image_pub.publish(self.bridge.cv2_to_imgmsg(data, "bgr8"))
         except CvBridgeError as e:
-            print(e)
+            rospy.loginfo(e)
     def run(self):
         rospy.spin()
 
