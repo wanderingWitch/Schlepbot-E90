@@ -13,20 +13,11 @@ import serial, time
 import roslib
 import rospy
 from geometry_msgs.msg import Twist
-CONTROL_PERIOD = rospy.Duration(0.01)
 class writer(object):
 
     def __init__(self):
         # create a port.
-        # some robustness, so it can run on both mac and linux
-        # try: # should work on linux
-        #     # self.port = serial.Serial('/dev/cu.usbserial')
-        #     self.port = serial.Serial('/dev/ttyUSB0')
-        # except serial.serialutil.SerialException: # should work on mac
-        #     self.port = serial.Serial('/dev/cu.usbserial')
-
         self.port = serial.Serial('/dev/ttyUSB0')
-
         rospy.init_node('writer')
         # initialize values for address, command, and data, and the checksum
         self.address = bytearray([128])
@@ -34,25 +25,25 @@ class writer(object):
         self.data = bytearray([2])
         self.checksum = bytearray([0])
 
-        # set up a timeout, where the motor will time out after not
-        # recieving a command for five seconds.
+        # Write initial data
         self.write()
+        # Receives commands from control node or key_teleop node
         rospy.Subscriber('key_vel', Twist, self.update_vel)
 
     # Just run
     def run(self):
         rospy.spin()
 
-
+    #  Received a new velocity from the command node
     def update_vel(self, msg):
-        # Set forward velocity
-	print "update_vel callback"
-	# someone made right turns positive in the msg finle, so we need to correct
-	msg.angular.z *= -1
-        self.send_linear_vel(int(0.5*127*msg.linear.x))
-	print "linear: ",str(self.data[0])
-        self.send_angular_vel(int(0.5*127*msg.angular.z))
-	print "angular: ", str(self.data[0])
+	   # someone made right turns positive in the key_teleop node, so we need to correct
+	   msg.angular.z *= -1
+       self.send_linear_vel(int(0.5*127*msg.linear.x))
+       rospy.loginfo('Written linear velocity: {}'.format(self.data[0]))
+	   print "linear: ",str(self.data[0])
+       self.send_angular_vel(int(0.5*127*msg.angular.z))
+       rospy.loginfo('Written angular velocity: {}'.format(self.data[0]))
+	   print "angular: ", str(self.data[0])
 
     def write(self):
         """ Computes the checksum then writes the
@@ -69,6 +60,7 @@ class writer(object):
         self.port.write(towrite)
         print 'wrote a packet: '
 
+    # The checksum helps confirm that no data corruption has occurred
     def compute_checksum(self):
         self.checksum = bytearray([(self.address[0] + self.command[0] +  \
             self.data[0]) & 0b01111111 ])
@@ -84,11 +76,13 @@ class writer(object):
             vel = int(vel)
             assert(-128 < vel and 128 > vel)
         except TypeError, AssertionError:
-            print 'That is not a valid input'
+            rospy.logwarn('That is not a valid linear velocity: {}'.format(vel))
+            vel = 0
+        # Use 0 as forwards case
         if vel == 0:
             self.command[0] = 8
             self.data[0] = 0
-
+        # Forwards case
         elif vel > 0:
             self.command[0] = 8
             self.data[0] = vel
@@ -110,7 +104,8 @@ class writer(object):
             vel = int(vel)
             assert(-128 < vel and 128 > vel)
         except TypeError, AssertionError:
-            print 'That is not a valid input'
+            rospy.logwarn('That is not a valid angular velocity: {}'.format(vel))
+            vel = 0
 
         if vel == 0:
             self.command[0] = 11
@@ -126,18 +121,19 @@ class writer(object):
 
         self.write()
 
+    # Stop motors
     def stop(self):
         self.send_linear_vel(0)
         self.send_angular_vel(0)
 
     def __del__(self):
       	self.stop() # Stop the robot moving
-        self.port.close()
+        self.port.close() # Close port
 
 if __name__ == '__main__':
     try:
         controller = writer()
         controller.run()
     except rospy.ROSInterruptException:
-        # Some sort of error
+        # Any kind of error
         controller.stop()
