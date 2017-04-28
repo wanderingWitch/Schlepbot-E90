@@ -19,11 +19,8 @@ import numpy as np
 # for ROS stuff
 import rospy
 import roslib;
-# roslib.load_manifest('apriltag_detector')
 
-# from rospy_tutorials.msg import Floats
 from geometry_msgs.msg import Point
-# from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 
@@ -43,14 +40,9 @@ class apriltag_detector(object):
         # HACK: rather than subscribing to an image topic and then using that
         # data, just capture the node with cv2.VideoCapture every set length
         # of time.
+
+        # Will let us convert from cv image to ros image and back
         self.bridge = CvBridge()
-        # self.camera = cv2.VideoCapture(0)
-
-        # print self.camera
-
-        # fps = 50 # frames per second
-        # rate = rospy.Duration(1.0 / fps)
-        # rospy.Timer(rate, self.image_callback)
 
         # UNHACK: subscribe to the image publisher and create an image_callback
         self.sub = rospy.Subscriber("camera_raw", Image, self.image_callback )
@@ -60,14 +52,13 @@ class apriltag_detector(object):
                     [-aprilsize, -aprilsize, 0.],
                     [-aprilsize, aprilsize, 0.],
                     [aprilsize, aprilsize, 0.]])
+        # From camera calibration
         self.cmatrix = np.loadtxt("/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/src/apriltag_detector/CameraMatrix.txt")
         self.dists = np.loadtxt("/home/schleppy/project_files/Schlepbot-E90/catkin_ws_new/src/apriltag_detector/Distortion.txt")
 
         self.pub = rospy.Publisher('apriltag', Point, queue_size = 10)
-        # self.pub = rospy.Publisher('apriltag', String, queue_size = 10)
-        # self.bridge = CvBridge()
 
-        # set upt the detector
+        # set up the detector
         parser = ArgumentParser(
             description='test apriltag Python bindings')
 
@@ -80,50 +71,38 @@ class apriltag_detector(object):
 
         # create an apriltag detector
         self.detector = apriltag.Detector(options)
-        # print self.detector
-        # print 'created a detector'
-        # some parameters for calculating the moving average of vectors.
-        # We will store each tvec computed data. Each row of the tvec_list
-        # will be a value of the tvec
-        # self.tvec_list = np.empty([10, 3])
-        # self.tvec_list[:] = np.nan
-        # self.tvec_list_index = 0
+
+        # Moving average of translation vectors.
         self.tvec_avg = np.array([[0], [0], [0]])
-        # print self.tvec_avg.shape
 
     def image_callback(self, data):
-        """ At a specified rate (determined by fps variable in __init__),
-        it will call this method, which will grab a frame, then analyze the
-        image to see if it has any apriltags in it.
+        """ At a specified rate (determined by frame rate in the image_mod node),
+        it will call this method, which will the raw image then analyze it
+         to see if it has any apriltags in it.
         If it does, then it will publish the center of the image to the
         topic. If it does not, then it will do nothing.
         """
 
-        # success, data = self.camera.read()
-        # if not success:
-            # print 'failed to read'
-            # rospy.loginfo('failed to read camera')
-            # return
-        # rospy.loginfo('found an image')
-        # bridgedata = self.bridge.imgmsg_to_cv2(data, "bgr8")
+        # Import raw image and convert to cv2 format
         frame = self.bridge.imgmsg_to_cv2(data, "bgr8")
+        # Convert to grayscale (AprilTag detector prefers this)
         gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
         detections = self.detector.detect(gray, return_image = False)
 
         num_detections = len(detections)
         rospy.loginfo('Detected {} tags'.format(num_detections))
-        if not detections:
-		self.pub.publish(None,None, None)
-		return
+        # Check to see if any detections
+        if (not detections):
+		          self.pub.publish(None,None, None)
+		          return
 
-	detection = detections[0]
+	    detection = detections[0]
         retval, rvec, tvec = cv2.solvePnP(self.opts, detection.corners,
             self.cmatrix, self.dists)
-        # print tvec
+        # Update moving average with 60% old, 40% new
         self.tvec_avg = 0.6 * self.tvec_avg + 0.4 * tvec
-        # self.tvec_avg = 0.5 * tvec + 0.5 * self.tvec_avg #  moving average 
-        # print self.tvec_avg
-        self.pub.publish(self.tvec_avg[0], self.tvec_avg[1], self.tvec_avg[2]) # publish the center of the tag.
+         # publish the center of the tag.
+        self.pub.publish(self.tvec_avg[0], self.tvec_avg[1], self.tvec_avg[2])
 
     # Running is just rospy.spin()
     def run(self):
@@ -135,3 +114,4 @@ if __name__ == '__main__':
         det.run()
     except rospy.ROSInterruptException:
 	pass
+# It's over!
