@@ -12,10 +12,10 @@ import roslib
 import rospy
 from geometry_msgs.msg import Twist, Point
 import numpy as np
-CORRECTION_FACTOR = 0 # .005 # This is by how much we adjust the angular velocity to
+CORRECTION_FACTOR = -0.08 # .005 # This is by how much we adjust the angular velocity to
 		       			# prevent Schleppy from pulling left
 LINEAR_SLOPE = 0.25
-ANGULAR_SLOPE = 0.12
+ANGULAR_SLOPE = 0.2
 MAX_SPEED = 1
 MAX_TURN = 0.1
 CONTROL_PERIOD = rospy.Duration(0.01)
@@ -65,9 +65,10 @@ class controller(object):
 			
 			linear = min(linear, MAX_SPEED)
 			angular = min(abs(ANGULAR_SLOPE*angle), MAX_TURN_RATE)*np.sign(angle)
-			rospy.loginfo('angular velocity = {}'.format(angular))	
+			rospy.loginfo('Angle = {}'.format(angle))
 			if(linear!=0):
-				angular += CORRECTION_FACTOR
+				# angular += CORRECTION_FACTOR
+				angular += max(CORRECTION_FACTOR / msg.z, CORRECTION_FACTOR)
 
 			#if (np.abs(self.desired_linear - new_linear) > 0.02):
 			self.desired_linear = linear
@@ -85,8 +86,8 @@ class controller(object):
 		else:
 			cmd_vel.linear.x = self.desired_linear*ACCEL + (1-ACCEL)*self.cur_vel[0]
 			cmd_vel.angular.z = self.desired_angular*ACCEL + (1-ACCEL)*self.cur_vel[1]
-		rospy.loginfo('Linear velocity: {}'.format(cmd_vel.linear.x))
-		rospy.loginfo('Angular velocity: {}'.format(cmd_vel.angular.z))
+		# rospy.loginfo('Linear velocity: {}'.format(cmd_vel.linear.x))
+		# rospy.loginfo('Angular velocity: {}'.format(cmd_vel.angular.z))
 		self.cur_vel[0] = cmd_vel.linear.x
 		self.cur_vel[1] = cmd_vel.angular.z
 

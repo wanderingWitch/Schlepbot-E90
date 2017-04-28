@@ -119,17 +119,9 @@ class apriltag_detector(object):
 	detection = detections[0]
         retval, rvec, tvec = cv2.solvePnP(self.opts, detection.corners,
             self.cmatrix, self.dists)
-        # print self.tvec_avg.shape
         # print tvec
-        # tvec = tvec.flatten()
-        # self.tvec_list[self.tvec_list_index, :] = tvec.flatten()
-        # self.tvec_list_index = (self.tvec_list_index + 1) % 10
-        # print "un-averaged list", self.tvec_list
-        # self.tvec = np.mean(modified_list, axis=0)
-        # modified_list = self.tvec_list[~(np.isnan(self.tvec_list[:]).any(axis=1)),:]
-        # print "tvec is ", self.tvec
-        # self.tvec_avg = 0.6 * self.tvec_avg + 0.4 * tvec
-        self.tvec_avg = 0.5 * tvec + 0.5 * self.tvec_avg # No moving average 
+        self.tvec_avg = 0.6 * self.tvec_avg + 0.4 * tvec
+        # self.tvec_avg = 0.5 * tvec + 0.5 * self.tvec_avg #  moving average 
         # print self.tvec_avg
         self.pub.publish(self.tvec_avg[0], self.tvec_avg[1], self.tvec_avg[2]) # publish the center of the tag.
 

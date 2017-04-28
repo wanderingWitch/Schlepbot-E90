@@ -125,6 +125,6 @@ if __name__ == '__main__':
     controller.send_angular_vel(0)
 
 
-    time.sleep(3)
+    time.sleep(5)
 
     controller.stop()
