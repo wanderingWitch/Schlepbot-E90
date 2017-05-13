@@ -1,3 +1,5 @@
+"""Courtesy of Kate Longley, 2017"""
+
 import numpy as np
 import cv2
 import numpy
@@ -7,6 +9,7 @@ import os
 
 #code modified from OpenCV Camera Calibration python tutorial
 #http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_calibration/py_calibration.html
+
 
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
