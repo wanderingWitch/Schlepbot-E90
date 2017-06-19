@@ -1,8 +1,0 @@
-prefix=/home/schleppy/project_files/Schlepbot-E90/catkin_ws/devel
-
-Name: joy_teleop
-Description: Description of joy_teleop
-Version: 0.2.4
-Cflags: 
-Libs: -L/home/schleppy/project_files/Schlepbot-E90/catkin_ws/devel/lib 
-Requires: actionlib
