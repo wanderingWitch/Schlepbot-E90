@@ -1,6 +1,7 @@
 # Schlepbot-E90
 Engineering Capstone project for Mollie Wild and Evan Greene
 Spring 2017
+Demo available at https://www.youtube.com/watch?v=o86y688Y1Jw
 
 Relevant files:
 
@@ -28,4 +29,4 @@ None              launch_camera.sh          bash file to launch apriltag_detecto
 None              launch_motors.sh          bash file to launch line_follower nodes
 None              launch_ros.sh             bash file to launch roscore
 None              launch.sh                 bash file to launch ROS and all nodes;
-                                            not complete but intended to allow launch on startup
+                                            not complete but intended to allow launch on startup            
